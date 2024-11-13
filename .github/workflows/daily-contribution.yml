@@ -2,7 +2,8 @@ name: Daily Contribution
 
 on:
   schedule:
-    - cron: '*/5 * * * *'
+    - cron: '*/5 * * * *'  # 5분마다 실행
+  workflow_dispatch:  # 수동 실행을 허용
 
 jobs:
   add-commit:
@@ -15,10 +16,10 @@ jobs:
     - name: Set up Node.js
       uses: actions/setup-node@v2
       with:
-        node-version: '16'  # Node.js 버전 16으로 설정 (필요에 따라 수정)
+        node-version: '16'
 
     - name: Install dependencies
-      run: npm install  # 루트 디렉토리에 있는 package.json을 사용하여 종속성 설치
+      run: npm install
 
     - name: Add today's date to contributions.md
       run: |
