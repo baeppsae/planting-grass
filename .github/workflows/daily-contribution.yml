@@ -2,7 +2,7 @@ name: Daily Contribution
 
 on:
   schedule:
-    - cron: '0 0 * * *' 
+    - cron: '0 0 * * *'  # 매일 자정(UTC 기준)에 실행, 한국 시간은 오전 9시
 
 jobs:
   add-commit:
@@ -12,6 +12,17 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '16' 
+
+    - name: Install dependencies
+      run: npm install 
+
+    - name: Run tests
+      run: npm test 
+
     - name: Add today's date to contributions.md
       run: |
         echo "Date: $(date '+%Y-%m-%d')" >> contributions.md
@@ -19,6 +30,7 @@ jobs:
         git config --global user.email "your-email@example.com"
         git add contributions.md
         git commit -m "Add contribution for $(date '+%Y-%m-%d')"
+
     - name: Push changes
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
