@@ -12,14 +12,8 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
-
-    - name: Set up Node.js
-      uses: actions/setup-node@v2
       with:
-        node-version: '16'
-
-    - name: Install dependencies
-      run: npm install
+        token: ${{ secrets.GITHUB_TOKEN }}  # 권한 설정
 
     - name: Add today's date to contributions.md
       run: |
@@ -29,8 +23,12 @@ jobs:
         git add contributions.md
         git commit -m "Add contribution for $(date '+%Y-%m-%d')"
 
+    - name: Pull latest changes from remote
+      run: |
+        git pull --rebase origin main  # 원격 변경 사항을 로컬에 병합
+
     - name: Push changes
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # GITHUB_TOKEN 사용
       run: |
-        git push
+        git push https://github.com/${{ github.repository }}.git HEAD:main
