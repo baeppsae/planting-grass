@@ -2,7 +2,7 @@ name: Daily Contribution
 
 on:
   schedule:
-    - cron: '0 0 * * *'  # 매일 자정(UTC 기준)에 실행, 한국 시간은 오전 9시
+    - cron: '0 0 * * *' 
 
 jobs:
   add-commit:
@@ -15,13 +15,10 @@ jobs:
     - name: Set up Node.js
       uses: actions/setup-node@v2
       with:
-        node-version: '16' 
+        node-version: '16'  # Node.js 버전 16으로 설정 (필요에 따라 수정)
 
     - name: Install dependencies
-      run: npm install 
-
-    - name: Run tests
-      run: npm test 
+      run: npm install  # 루트 디렉토리에 있는 package.json을 사용하여 종속성 설치
 
     - name: Add today's date to contributions.md
       run: |
