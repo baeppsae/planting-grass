@@ -18,7 +18,7 @@ jobs:
     - name: Configure Git
       run: |
         git config --global user.name "baeppsae"  # GitHub 계정 사용자명
-        git config --global user.email "minjkim8898@gmail.com
+        git config --global user.email "minjkim8898@gmail.com"
 
     - name: Add today's date to contributions.md
       run: |
